@@ -20,7 +20,7 @@
 
 using namespace std;
 
-//how can the remaining time be less than 0?
+//figure out how the remaining time for the process can be less than 0?
 
 bool shortestTimeRemainingSort(PCB a, PCB b);
 	//override base class behaviour if necessary, otherwise call it
@@ -36,7 +36,10 @@ bool shortestTimeRemainingSort(PCB a, PCB b);
 		if (ready_q->front().remaining_cpu_time <= 0){
 			return true;
 		}
-		return Scheduler::time_to_switch_processes(tick_count, p);
+		else{
+			return false;
+		}
+
 	}
 
 	//SRTF-preemptive - sort ready_q by remaining_cpu_time whenever add(PCB p) or time_to_switch_processes is called

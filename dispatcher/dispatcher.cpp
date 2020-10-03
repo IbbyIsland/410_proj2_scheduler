@@ -19,7 +19,8 @@ using namespace std;
 	//pull current process (if any) off CPU and return it
 	//if nothing on CPU returns an uninitialized PCB
 	PCB Dispatcher::get_from_CPU(){
-		if (isValidJobOnCPU()){
+		//use the is_valid_job from the header file
+		if (!is_valid_job_on_cpu){
 			return cpu->get_process_off_core();
 
 		}
@@ -33,19 +34,29 @@ using namespace std;
 	void Dispatcher::put_on_CPU(PCB  &process){
 
 		//while there's something inside the process to run and its valid:
-		if (process.isEmpty() == false){
+		//actually, only add if its a valid job
+		//use the boolean provided?
+		if (is_valid_job_on_cpu == true){
 			cpu->put_process_on_core(process);
 		}
-		if (isValidJobOnCPU() == false){
-			cpu->put_process_on_core(process);
-		}
+
+//		if (isValidJobOnCPU() == false){
+//			cpu->put_process_on_core(process);
+//		}
 	}
 
 	//is CPU idle or working
 	bool Dispatcher::isValidJobOnCPU(){
 		//check how to find out the state, and if its empty
 		//double check if it's this simple with prof
-		return cpu->get_COPY_of_Current_Process().isEmpty();
+		//just use boolean provided on the header file
+//		return cpu->get_COPY_of_Current_Process().isEmpty();
+		if (is_valid_job_on_cpu == true){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 

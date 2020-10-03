@@ -40,6 +40,7 @@
 	//returns true if there are no  jobs in the readyQ
 	//false otherwise
 	bool Scheduler::isEmpty(){
+		//check if its empty or not
 		if (ready_q->empty() == true){
 			return true;
 		}
@@ -56,8 +57,8 @@
 	//true - switch processes
 	//false - do not switch
 	bool Scheduler::time_to_switch_processes(int tick_count, PCB &p){
-
-		if (p.remaining_cpu_time < 0 || p.remaining_cpu_time == 0){
+		//if its remaining time is done, return true
+		if (p.remaining_cpu_time <= 0){
 			return true;
 		}
 		return false;

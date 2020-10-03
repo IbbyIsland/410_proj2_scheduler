@@ -27,7 +27,14 @@ using namespace std;
 	//should refer back to scheduler.cpp?
 	bool  Scheduler_FIFO::time_to_switch_processes(int tick_count, PCB &p){
 		//use the given tick count for this process to see if it should switch processes depending on how much time it has
-		return Scheduler::time_to_switch_processes(tick_count, p);
+		//just make sure the process isn't finished
+		//similar to scheduler.cpp
+		if (p.remaining_cpu_time <= 0){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 	//FIFO - not preemptive - no sorting needed

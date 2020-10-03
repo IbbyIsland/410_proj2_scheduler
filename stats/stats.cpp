@@ -6,9 +6,11 @@
  */
 
 #include <vector>
+//only include whatever is in the header file
 #include "../includes/stats.h"
 
 	Stats::Stats(std::vector<PCB> &finished_vector){
+		//take from the header file
 		av_wait_time = 0.0;
 		av_response_time = 0.0;
 		av_turnaround_time = 0.0;
@@ -23,7 +25,7 @@
 		//go through the vector
 		for(int i; i < vec->size(); i++){
 			//make sure it doesn't start with "Process 0"
-			//redo loop and order to print statements
+			//redo statement and order to print statements
 		std::cout << "Process " << i + 1 << " Required CPU time:" << vec->at(i).required_cpu_time << " arrived:"
 				<< vec->at(i).arrival_time << " started:" << vec->at(i).start_time << " finished:" << vec->at(i).finish_time;
 
@@ -38,18 +40,18 @@
 	//this funtion returns the average over all processes
 	float Stats::get_av_response_time(){
 		float counter = 0.0;
-		float responseTime = 0.0;
+		//float responseTime = 0.0;
 		int i = 0;
 						//get the info
 		for (int i = 0; i < vec->size(); i++){
-			responseTime += (vec->at(i).start_time - vec->at(i).arrival_time);
+			av_response_time += (vec->at(i).start_time - vec->at(i).arrival_time);
 			counter += 1;
 		}
 		if (counter == 0.0){
 			return counter;
 		}
 				//get the average by dividing by the number of counters
-		return responseTime/counter;
+		return av_response_time/counter;
 	}
 
 	//after a process is placed in the ready_q, how long does
@@ -59,19 +61,19 @@
 	float Stats::get_av_turnaround_time(){
 		//initialize the time for every process
 		float counter = 0.0;
-		float turnAroundTime = 0.0;
+		//float turnAroundTime = 0.0;
 		int i = 0;
 				//get the info
 		for (int i = 0; i < vec->size(); i++){
-			turnAroundTime += (vec->at(i).finish_time - vec->at(i).arrival_time);
+			av_turnaround_time += (vec->at(i).finish_time - vec->at(i).arrival_time);
 			counter += 1;
 		}
-		//if there's nothing in the file for turnaroundTime:
+		//if there's nothing in the process for turnaroundTime:
 		if (counter == 0.0){
 			return counter;
 		}
 		//get the average by dividing by the number of counters
-		return turnAroundTime/counter;
+		return av_turnaround_time/counter;
 
 
 	}
@@ -82,11 +84,11 @@
 	//this funtion returns the average over all processes
 	float Stats::get_av_wait_time(){
 		float counter = 0.0;
-		float waitTime = 0.0;
+		//float waitTime = 0.0;
 		int i = 0;
 						//get the info
 		for (int i; i < vec->size(); i++){
-			waitTime += (vec->at(i).finish_time - vec->at(i).arrival_time - vec->at(i).required_cpu_time);
+			av_wait_time += (vec->at(i).finish_time - vec->at(i).arrival_time - vec->at(i).required_cpu_time);
 			counter += 1;
 		}
 		//if there's nothing in the waitTime portion:
@@ -94,7 +96,7 @@
 		return counter;
 		}
 				//get the average by dividing by the number of counters
-		return waitTime/counter;
+		return av_wait_time/counter;
 
 	}
 

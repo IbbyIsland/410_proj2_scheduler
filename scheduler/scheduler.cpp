@@ -21,6 +21,7 @@
 	void Scheduler::add(PCB p){
 		//use push? or push_back? look at difference
 		ready_q->push(p);
+		sort();
 
 	}
 
@@ -28,10 +29,12 @@
 	//get next process on the vector
 	PCB Scheduler::getNext(){
 		//relate this to getNext in previous project
+		if (isEmpty()){
+			return PCB();
+		}
 		PCB myNext;
-
 		myNext = ready_q->front();
-
+		ready_q->pop();
 		return myNext;
 
 
@@ -58,17 +61,14 @@
 	//false - do not switch
 	bool Scheduler::time_to_switch_processes(int tick_count, PCB &p){
 		//if its remaining time is done, return true
-		if (p.remaining_cpu_time <= 0){
+		if (p.remaining_cpu_time <= 0 || preemptive && tick_count - p.start_time >= time_slice){
 			return true;
 		}
 		return false;
 	}
 
 	// sort  ready_q based on the scheduler algorithm used whenever add(PCB p) is called
-	void Scheduler::sort(){
-		//pure virtual function
-		sort();
-	}
+
 
 
 

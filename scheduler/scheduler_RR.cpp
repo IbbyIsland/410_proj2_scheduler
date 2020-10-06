@@ -29,15 +29,13 @@ using namespace std;
 	//figure out the conditional statement to see if it should switch statments
 	 bool  Scheduler_RR::time_to_switch_processes(int tick_count, PCB &p){
 
-		if ((p.required_cpu_time - p.remaining_cpu_time) % time_slice <= 0){
+		if ((p.required_cpu_time - p.remaining_cpu_time) % time_slice <= 0 || p.remaining_cpu_time == 0){
 			return true;
 		}
-
-
-		return Scheduler::time_to_switch_processes(tick_count, p);
+		return false;
 	}
 
 	//RR - preemptive - no sorting of ready_q needed.
 	 void Scheduler_RR::sort(){
-		 //had to put a comment to attempt to define it so it doesn't give an error
+		 preemptive = true;//had to put a comment to attempt to define it so it doesn't give an error
 	 }

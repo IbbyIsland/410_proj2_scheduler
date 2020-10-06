@@ -39,7 +39,7 @@ using namespace std;
 
 	//FIFO - not preemptive - no sorting needed
 	void Scheduler_FIFO::sort(){
-
+		preemptive = false;
 	}
 
 
